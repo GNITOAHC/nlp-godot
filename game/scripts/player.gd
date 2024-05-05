@@ -9,6 +9,16 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animated_sprite = $AnimatedSprite2D
 
+func wait(sec: float) -> void:
+	await get_tree().create_timer(sec).timeout
+
+func move(cmd: String, wait_sec: float):
+	if cmd == "stop":
+		return
+	Input.action_press(cmd, 1.0)
+	await wait(wait_sec)
+	Input.action_release(cmd)
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
