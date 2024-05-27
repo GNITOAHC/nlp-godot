@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxwkivccetdg1"]
+
+[ext_resource type="PackedScene" uid="uid://d2xf4wuh2u4t6" path="res://addons/gevp/scenes/demo_arcade.tscn" id="4_c3s0k"]
+
+[sub_resource type="Environment" id="Environment_dyswi"]
+
+[node name="world" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dyswi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.625733, 0.780037, 0, -0.780037, 0.625733, 0, 11.9306, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 0, 4.15065, -5.8989)
+
+[node name="ArcadeDemo" parent="." instance=ExtResource("4_c3s0k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.220497, 0)
