@@ -13,6 +13,21 @@ func capture(path: String) -> void:
 	var img = get_viewport().get_texture().get_image()
 	img.save_png(path)
 
+func mock_press(keys: Array) -> void:
+	for key in keys:
+		Input.action_press(key, 1.0)
+	await wait(0.5)
+	for key in keys:
+		Input.action_release(key) # Throttle
+	return
+
+func move(action: String) -> void:
+	match action:
+		"front": mock_press(["Throttle"])
+		"front_right": mock_press(["Throttle", "Steer Right"])
+		"front_left": mock_press(["Throttle", "Steer Left"])
+	return
+
 func _process(delta):
 	socket.poll()
 	var state = socket.get_ready_state()
@@ -22,7 +37,7 @@ func _process(delta):
 			socket.send_text("From godot engine 1")
 			var cmd = socket.get_packet().get_string_from_ascii()
 			print(cmd)
-			$"../../Player".move(cmd, 0.1)
+			move(cmd)
 			capture("C:/Users/chaot/Downloads/image.png")
 	elif state == WebSocketPeer.STATE_CLOSING:
 		# Keep polling to achieve proper close.
